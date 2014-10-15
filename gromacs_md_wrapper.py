@@ -107,26 +107,22 @@ def fasta_frequency(filename):
 # STARTING GROMACS
 #run the 'mdrun -version' to check if see if GROMACS is set up fine
 #Exit on error
-############################################################################
+#############################################################################
 
 #WRAPPER HOME dir
 WORK_HOME_DIR = os.getcwd()
+
 #GROMACS BIN directory definition
 GROMACS_BIN = '/usr/local/gromacs/bin'
+
 print os.getcwd()
 #subprocess.call('mdrun -version',shell=True)
-output = subprocess.call(["mdrun","-version"])
-#########
-"""
-#os.chdir(GROMACS_BIN)
-print os.getcwd()
-print os.system("source /usr/local/gromacs/bin/GMXRC")
-t=subprocess.call([WORK_HOME_DIR, "./mdrun", "-version"])
-print t
-print os.getcwd()
-#os.chdir(WORK_HOME_DIR)
-print os.getcwd()
-"""
+ret_cd = subprocess.call(["mdrun","-version"])
+if (ret_cd==0):
+	print "Gromacs is up and running !! \n"
+	LOGFILE.write("Gromacs is up and running !! \n")
+
+
 #################################################################################################
 #
 # pdb2gmx
@@ -136,6 +132,55 @@ print os.getcwd()
 # topology in .top #format. These files can subsequently be processed by grompp to generate a run 
 # input file, tpr.
 ##################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################################################################################################
 print '*'*80
 print 'Total Runtime of the script >>>>',scriptname,"<<<< is ",time.time()-start," sec(s) "
 print "LOGFILE >"+logfile_name +"<<<<< END <<<<<<<<<<\n"
