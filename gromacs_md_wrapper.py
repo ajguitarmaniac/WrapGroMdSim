@@ -1,11 +1,11 @@
 #################################################################################
 #Python Wrapper function for calling GROMACS programs to run MD simulations
 #################################################################################
-
+#!/usr/bin/python
 #Import Modules and Clear the windows command prompt screen
 import sys
 import time
-import bio
+import Bio
 start = time.time()
 import datetime
 import os
@@ -32,6 +32,7 @@ LOGFILE.write('*'*80+"\n")
 ###########################################################################
 print '*'*80
 LOGFILE.write('*'*80+"\n")
+LOGFILE.write(scriptname+"Python Wrapper for MD simulations using GROMACS 4.6.6\n")
 print scriptname,"Python Wrapper for MD simulations using GROMACS 4.6.6"
 print '*'*80
 LOGFILE.write('*'*80+"\n")
@@ -110,21 +111,31 @@ def fasta_frequency(filename):
 
 #WRAPPER HOME dir
 WORK_HOME_DIR = os.getcwd()
-
 #GROMACS BIN directory definition
-
 GROMACS_BIN = '/usr/local/gromacs/bin'
-os.chdir(GROMACS_BIN)
 print os.getcwd()
-#subprocess.call("source /usr/local/gromacs/bin/GMXRC")
-t =(subprocess.call(["./mdrun","-version"]))
+#subprocess.call('mdrun -version',shell=True)
+output = subprocess.call(["mdrun","-version"])
+#########
+"""
+#os.chdir(GROMACS_BIN)
+print os.getcwd()
+print os.system("source /usr/local/gromacs/bin/GMXRC")
+t=subprocess.call([WORK_HOME_DIR, "./mdrun", "-version"])
 print t
 print os.getcwd()
-os.chdir(WORK_HOME_DIR)
+#os.chdir(WORK_HOME_DIR)
 print os.getcwd()
-
-
-##########################
+"""
+#################################################################################################
+#
+# pdb2gmx
+# For Creating GROMACS topology file from a PDB inout file
+# This program reads a coordinate file, typically a PDB file, reads some database files, 
+# adds hydrogens to the molecules and generates coordinates in .gro format (by default) and a 
+# topology in .top #format. These files can subsequently be processed by grompp to generate a run 
+# input file, tpr.
+##################################################################################################
 print '*'*80
 print 'Total Runtime of the script >>>>',scriptname,"<<<< is ",time.time()-start," sec(s) "
 print "LOGFILE >"+logfile_name +"<<<<< END <<<<<<<<<<\n"
