@@ -1,11 +1,7 @@
-#################################################################################
-#Python Wrapper function for calling GROMACS programs to run MD simulations
-#################################################################################
 
 #Import Modules and Clear the windows command prompt screen
 import sys
 import time
-import bio
 start = time.time()
 import datetime
 import os
@@ -101,6 +97,10 @@ def fasta_frequency(filename):
 	fo.close()
 #fasta_frequency(filename_from_user)
 """
+
+#################################################################################
+#Python Wrapper function for calling GROMACS programs to run MD simulations
+#################################################################################
 
 #############################################################################
 # STARTING GROMACS
