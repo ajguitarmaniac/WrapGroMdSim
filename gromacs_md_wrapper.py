@@ -1,5 +1,6 @@
 #################################################################################
 #Python Wrapper function for calling GROMACS programs to run MD simulations
+# Wrapper location = /home/ajay/Ajay/code/git/WrapGroMdSim
 #################################################################################
 #!/usr/bin/python
 #Import Modules and Clear the windows command prompt screen
