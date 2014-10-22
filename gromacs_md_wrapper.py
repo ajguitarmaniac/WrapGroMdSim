@@ -131,13 +131,6 @@ while True:
 	print "Gromacs cool quote : ",o
 ##########
 
-
-
-
-
-
-
-
 if (ret_cd==0):
 	print "Gromacs is up and running !! \n"
 	LOGFILE.write("Gromacs is up and running !! \n")

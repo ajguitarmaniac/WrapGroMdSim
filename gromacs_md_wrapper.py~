@@ -125,10 +125,10 @@ from subprocess import Popen,PIPE
 p = Popen(("g_luck"),stdout=PIPE)
 
 while True:
-  o = p.stdout.readline()
-  print o
-  if o == '' and p.poll() != None: break
-  print "Gromacs cool quote : ",o
+	o = p.stdout.readline()
+	print o
+	if o == '' and p.poll() != None: break
+	print "Gromacs cool quote : ",o
 ##########
 
 
@@ -139,9 +139,9 @@ while True:
 
 
 if (ret_cd==0):
-  print "Gromacs is up and running !! \n"
-  LOGFILE.write("Gromacs is up and running !! \n")
-  #print "Gromacs cool quote : "+str(gcq)+"\n"
+	print "Gromacs is up and running !! \n"
+	LOGFILE.write("Gromacs is up and running !! \n")
+  	#print "Gromacs cool quote : "+str(gcq)+"\n"
 
 #################################################################################################
 #
