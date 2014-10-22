@@ -7,4 +7,5 @@ source /usr/local/gromacs/bin/GMXRC
 #Executing the Python Wrapper
 python /home/ajay/Ajay/code/git/WrapGroMdSim/gromacs_md_wrapper.py
 
+
 exit;

@@ -29,7 +29,6 @@ print '*'*80
 LOGFILE.write('*'*80+"\n")
 LOGFILE.write("LOGFILE >"+logfile_name +"<<<<< BEGIN <<<<<<<<<<\n" )
 LOGFILE.write('*'*80+"\n")
-###########################################################################
 print '*'*80
 LOGFILE.write('*'*80+"\n")
 LOGFILE.write(scriptname+"Python Wrapper for MD simulations using GROMACS 4.6.6\n")
@@ -104,24 +103,45 @@ def fasta_frequency(filename):
 """
 
 #############################################################################
-# STARTING GROMACS
+#Define All Directory paths to be used by various functions
+#Define File handle identifiers to be used in the filename
+#File Naming Convention : <ProteinNamefromPDBFileName>_<FORCEFIELDID>_<RUNDATEID>.extension
+#STARTING GROMACS
 #run the 'mdrun -version' to check if see if GROMACS is set up fine
 #Exit on error
 #############################################################################
 
 #WRAPPER HOME dir
 WORK_HOME_DIR = os.getcwd()
-
 #GROMACS BIN directory definition
 GROMACS_BIN = '/usr/local/gromacs/bin'
 
-print os.getcwd()
-#subprocess.call('mdrun -version',shell=True)
 ret_cd = subprocess.call(["mdrun","-version"])
+#gcq = subprocess.call("g_luck")
+
+###############
+from subprocess import Popen,PIPE
+
+p = Popen(("g_luck"),stdout=PIPE)
+
+while True:
+	o = p.stdout.readline()
+	print o
+	if o == '' and p.poll() != None: break
+	print "Gromacs cool quote : ",o
+##########
+
+
+
+
+
+
+
+
 if (ret_cd==0):
 	print "Gromacs is up and running !! \n"
 	LOGFILE.write("Gromacs is up and running !! \n")
-
+  	#print "Gromacs cool quote : "+str(gcq)+"\n"
 
 #################################################################################################
 #
