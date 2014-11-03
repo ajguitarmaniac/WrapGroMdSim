@@ -29,6 +29,33 @@ mdrun -v -deffnm em
 #Potential energy XVG
 g_energy -f em.edr -o potential_GIIIA.xvg < 10
 
+#Equilibration NVT
+grompp -f nvt.mdp -c em.gro -p topol.top -o nvt.tpr
+
+#MD run NVT
+mdrun -deffnm nvt
+
+#Analyze the temperature progression
+g_energy -f nvt.edr -o temperature_GIIIA.xvg < 15
+
+#Equilibration NPT
+grompp -f npt.mdp -c nvt.gro -t nvt.cpt -p topol.top -o npt.tpr
+
+#MD Run NPT
+mdrun -deffnm npt
+
+#Analyse Pressure progression
+g_energy -f npt.edr -o pressure_GIIIA.xvg < 16
+
+#Analyse Density progression
+g_energy -f npt.edr -o density_GIIIA.xvg < 22
+
+#Pre-precess for ProductionMD
+grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o MD_GIIIA_10ns.tpr
+
+#Production MD
+mdrun -deffnm MD_GIIIA_10ns
+
 exit;
 
 
