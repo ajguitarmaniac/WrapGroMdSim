@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+# Open a file
+fo = open("foo.txt", "rw+")
+print "Name of the file: ", fo.name
+
+
+line = fo.readline()
+
+print "Read Line: %s" % (line)
+line = fo.readline(6)
+print "Read Line: %s" % (line)
+
+
+# Close opend file
+fo.close()
