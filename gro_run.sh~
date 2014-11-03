@@ -50,7 +50,7 @@ g_energy -f npt.edr -o pressure_GIIIA.xvg < 16
 #Analyse Density progression
 g_energy -f npt.edr -o density_GIIIA.xvg < 22
 
-#Pre-process for ProductionMD
+#Pre-precess for ProductionMD
 grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o MD_GIIIA_10ns.tpr
 
 #Production MD
