@@ -56,6 +56,19 @@ grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o MD_GIIIA_10ns.tpr
 #Production MD
 mdrun -deffnm MD_GIIIA_10ns
 
+#Analysis - Trajconv
+trjconv -s MD_GIIIA_10ns.tpr -f MD_GIIIA_10ns.xtc -o MD_GIIIA_10ns_noPBC.xtc -pbc mol -ur compact < 0
+
+#Structural Stability
+g_rms -s MD_GIIIA_10ns.tpr -f MD_GIIIA_10ns_noPBC.xtc -o GIIIA_rmsd.xvg -tu ns < 4
+
+#RMSD relative to the crystal structure
+g_rms -s em.tpr -f MD_GIIIA_10ns_noPBC.xtc -o GIIIA_rmsd_xtal.xvg -tu ns < 4
+
+#Measure of protein compactness - radius of gyration
+g_gyrate -s MD_GIIIA_10ns.tpr -f MD_GIIIA_10ns_noPBC.xtc -o GIIIA_gyrate.xvg
+
+
 exit;
 
 
