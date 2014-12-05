@@ -1,0 +1,17 @@
+#Shell script to set source and call the Python Wrapper
+#!/bin/sh
+#chmod u+x gro_test.sh
+#Setting Source for GROMACS
+#location = /home/ajay/Ajay/code/git/WrapGroMdSim
+
+#PIIIA416
+chmod u+x /home/ajay/Ajay/code/files/Simulations/PIIIA/4-16/gro_PIIIA_416.sh
+/home/ajay/Ajay/code/files/Simulations/PIIIA/4-16/./gro_PIIIA_416.sh
+
+#PIIIA NATIVE
+chmod u+x /home/ajay/Ajay/code/files/Simulations/PIIIA/Native/gro_PIIIA_native.sh
+/home/ajay/Ajay/code/files/Simulations/PIIIA/Native/gro_PIIIA_native.sh
+
+exit;
+
+

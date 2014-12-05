@@ -1,0 +1,74 @@
+#Shell script to set source and call the Python Wrapper
+#!/bin/sh
+#chmod u+x gro_run_PIIIA.sh
+#Setting Source for GROMACS
+#location = /home/ajay/Ajay/code/git/WrapGroMdSim
+
+source /usr/local/gromacs/bin/GMXRC
+#pdb2gmx
+pdb2gmx -f PIIIA_Cor.pdb -o PIIIA_processed.gro -ff amber99sb-ildn -water tip3p
+
+#editconf - define the box 
+editconf -f PIIIA_processed.gro -o PIIIA_newbox.gro -c -d 1.0 -bt dodecahedron
+
+#genbox - Solvation 
+genbox -cp PIIIA_newbox.gro -cs spc216.gro -o PIIIA_solv.gro -p topol.top
+
+#grompp - generate .tpr file for adding ions
+grompp -f ions.mdp -c PIIIA_solv.gro -p topol.top -o ions.tpr
+
+#genion
+genion -s ions.tpr -o PIIIA_solv_ions.gro -p topol.top -pname NA -nname CL -nn 5 < genion_param
+
+#grompp em
+grompp -f minim.mdp -c PIIIA_solv_ions.gro -p topol.top -o PIIIA_em.tpr
+
+#EM MD run
+mdrun -v -deffnm PIIIA_em
+
+#Potential energy XVG
+g_energy -f PIIIA_em.edr -o potential_PIIIA.xvg < pe_param
+
+#Equilibration NVT
+grompp -f nvt.mdp -c PIIIA_em.gro -p topol.top -o PIIIA_nvt.tpr
+
+#MD run NVT
+mdrun -deffnm PIIIA_nvt
+
+#Analyze the temperature progression
+g_energy -f PIIIA_nvt.edr -o temperature_PIIIA.xvg < temp_param
+
+#Equilibration NPT
+grompp -f npt.mdp -c PIIIA_nvt.gro -t PIIIA_nvt.cpt -p topol.top -o PIIIA_npt.tpr
+
+#MD Run NPT
+mdrun -deffnm PIIIA_npt
+
+#Analyse Pressure progression
+g_energy -f PIIIA_npt.edr -o pressure_PIIIA.xvg < pressure_param
+
+#Analyse Density progression
+g_energy -f PIIIA_npt.edr -o density_PIIIA.xvg < density_param
+
+#Pre-process for ProductionMD
+grompp -f md.mdp -c PIIIA_npt.gro -t PIIIA_npt.cpt -p topol.top -o MD_PIIIA_10ns.tpr
+
+#Production MD
+mdrun -deffnm MD_PIIIA_10ns
+
+#Analysis - Trajconv
+trjconv -s MD_PIIIA_10ns.tpr -f MD_PIIIA_10ns.xtc -o MD_PIIIA_10ns_noPBC.xtc -pbc mol -ur compact < trajconv_param
+
+#RMSD Structural Stability
+g_rms -s MD_PIIIA_10ns.tpr -f MD_PIIIA_10ns_noPBC.xtc -o PIIIA_rmsd.xvg -tu ns < rmsd_param
+
+#RMSD relative to the crystal structure
+g_rms -s PIIIA_em.tpr -f MD_PIIIA_10ns_noPBC.xtc -o PIIIA_rmsd_xtal.xvg -tu ns < rmsd_param
+
+#Measure of protein compactness - radius of gyration
+g_gyrate -s MD_PIIIA_10ns.tpr -f MD_PIIIA_10ns_noPBC.xtc -o PIIIA_gyrate.xvg < rg_param
+
+
+exit;
+
+
