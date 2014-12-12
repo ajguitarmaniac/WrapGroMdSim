@@ -116,7 +116,7 @@ def fasta_frequency(filename):
 WORK_HOME_DIR = os.getcwd()
 #GROMACS BIN directory definition
 GROMACS_BIN = '/usr/local/gromacs/bin'
-
+os.system("source /usr/local/gromacs/bin/GMXRC")
 ret_cd = subprocess.call(["mdrun","-version"])
 #gcq = subprocess.call("g_luck")
 
@@ -127,14 +127,13 @@ p = Popen(("g_luck"),stdout=PIPE)
 
 while True:
 	o = p.stdout.readline()
-	print o
 	if o == '' and p.poll() != None: break
-	print "Gromacs cool quote : ",o
+	print "Gromacs cool quote test here: ",o
 ##########
 if (ret_cd==0):
 	print "Gromacs is up and running !! \n"
 	LOGFILE.write("Gromacs is up and running !! \n")
-  	#print "Gromacs cool quote : "+str(gcq)+"\n"
+	#print "Gromacs cool quote : "+str(gcq)+"\n"
 
 #################################################################################################
 #
